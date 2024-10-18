@@ -1,0 +1,73 @@
+/* Estilo para el separador superior con etiqueta "POKER" */
+#adminmenu li#menu-poker-separator-top {
+    height: auto;
+    margin: 12px 0 6px;
+    padding: 0;
+    position: relative;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    border-bottom: none;
+}
+
+#adminmenu li#menu-poker-separator-top::before {
+    content: 'POKER';
+    display: block;
+    position: absolute;
+    top: -9px;
+    left: 10px;
+    padding: 0 5px;
+    background: #1d2327;
+    color: #fff;
+    font-size: 10px;
+    line-height: 18px;
+    font-weight: bold;
+}
+
+/* Estilo para el separador inferior */
+#adminmenu li#menu-poker-separator-bottom {
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    margin-bottom: 12px;
+}
+
+/* Ajustar el espaciado del submenú */
+#adminmenu li#menu-poker-separator-top + li .wp-submenu {
+    margin-top: 0;
+}
+
+/* Estilos para diferentes esquemas de color */
+.admin-color-light #adminmenu li#menu-poker-separator-top,
+.admin-color-light #adminmenu li#menu-poker-separator-bottom {
+    border-color: rgba(0,0,0,0.1);
+}
+
+.admin-color-light #adminmenu li#menu-poker-separator-top::before {
+    background: #fff;
+    color: #1d2327;
+}
+
+.admin-color-modern #adminmenu li#menu-poker-separator-top::before {
+    background: #0c0c0c;
+}
+
+.admin-color-blue #adminmenu li#menu-poker-separator-top::before {
+    background: #4796b3;
+}
+
+.admin-color-coffee #adminmenu li#menu-poker-separator-top::before {
+    background: #46403c;
+}
+
+.admin-color-ectoplasm #adminmenu li#menu-poker-separator-top::before {
+    background: #413256;
+}
+
+.admin-color-midnight #adminmenu li#menu-poker-separator-top::before {
+    background: #26292c;
+}
+
+.admin-color-ocean #adminmenu li#menu-poker-separator-top::before {
+    background: #627c83;
+}
+
+.admin-color-sunrise #adminmenu li#menu-poker-separator-top::before {
+    background: #be3631;
+}
