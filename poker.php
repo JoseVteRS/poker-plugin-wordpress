@@ -34,3 +34,7 @@ function iniciar_plugin_torneos_poker() {
     $plugin->run();
 }
 add_action('plugins_loaded', 'iniciar_plugin_torneos_poker');
+
+
+
+

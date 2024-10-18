@@ -5,6 +5,9 @@ namespace TorneosPoker;
 use TorneosPoker\PostTypes\Torneo;
 use TorneosPoker\PostTypes\Modalidad;
 use TorneosPoker\Taxonomies\PokerTaxonomies;
+use TorneosPoker\Database\TorneoQuery;
+use TorneosPoker\Database\ModalidadQuery;
+use TorneosPoker\Shortcodes;
 
 class Plugin
 {
@@ -21,6 +24,7 @@ class Plugin
         $this->cargadores['torneos'] = new Torneo();
         $this->cargadores['modalidades'] = new Modalidad();
         $this->cargadores['poker_taxonomies'] = new PokerTaxonomies();
+        $this->cargadores['shortcodes'] = new Shortcodes();
         // Aquí puedes añadir más cargadores para otros CPTs o funcionalidades
     }
 
@@ -30,6 +34,7 @@ class Plugin
         add_action('init', [$this->cargadores['modalidades'], 'registrar']);
         add_action('admin_menu', [$this, 'agregar_menu_poker']);
         add_action('admin_enqueue_scripts', [$this, 'enqueue_admin_styles']);
+        add_action('wp_enqueue_scripts', [$this, 'enqueue_frontend_styles']);
     }
 
     public function agregar_menu_poker()
@@ -76,6 +81,10 @@ class Plugin
     public function enqueue_admin_styles()
     {
         wp_enqueue_style('torneo-admin-style', plugin_dir_url(__FILE__) . '../../assets/css/admin-style.css');
+    }
+
+    public function enqueue_frontend_styles() {
+        wp_enqueue_style('torneos-poker-frontend', plugin_dir_url(__FILE__) . '../../assets/css/frontend-style.css');
     }
 
     public function run()
