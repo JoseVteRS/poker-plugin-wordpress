@@ -6,6 +6,7 @@ use TorneosPoker\PostTypes\Torneo;
 use TorneosPoker\PostTypes\Modalidad;
 use TorneosPoker\Taxonomies\PokerTaxonomies;
 use TorneosPoker\Shortcodes;
+use TorneosPoker\Admin\QuickEdit;
 
 class Plugin
 {
@@ -23,6 +24,7 @@ class Plugin
         $this->cargadores['modalidades'] = new Modalidad();
         $this->cargadores['poker_taxonomies'] = new PokerTaxonomies();
         $this->cargadores['shortcodes'] = new Shortcodes();
+        $this->cargadores['quick_edit'] = new QuickEdit('torneo');
         // Aquí puedes añadir más cargadores para otros CPTs o funcionalidades
     }
 

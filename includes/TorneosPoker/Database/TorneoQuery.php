@@ -25,6 +25,16 @@ class TorneoQuery extends QueryBuilder
         return $result ? $this->mapResultToModel($result) : null;
     }
 
+    public function test()
+    {
+        $results = $this
+            ->whereTaxonomy('casino', 'Benidorm')
+            ->orderBy('_torneo_fecha', 'DESC')
+            ->limit(10)
+            ->get();
+        return $this->mapResultsToModels($results);
+    }
+
     public function getByCasino($casino)
     {
         $results = $this->whereTaxonomy('casino', $casino)->get();

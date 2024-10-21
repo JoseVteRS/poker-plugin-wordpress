@@ -12,6 +12,8 @@ class Torneo
         add_action('add_meta_boxes', [$this, 'agregar_meta_boxes']);
         add_action('save_post', [$this, 'guardar_campos']);
         add_action('admin_enqueue_scripts', [$this, 'enqueue_admin_scripts']);
+        add_filter('manage_torneo_posts_columns', [$this, 'agregar_columnas_personalizadas']);
+        add_action('manage_torneo_posts_custom_column', [$this, 'rellenar_columnas_personalizadas'], 10, 2);
     }
 
     public function registrar()
@@ -194,7 +196,7 @@ class Torneo
         $mostrar_actualizacion = get_post_meta($post->ID, '_torneo_mostrar_actualizacion', true);
 
         if ($mostrar_frontend === '') {
-            $mostrar_frontend = 'on'; 
+            $mostrar_frontend = 'on';
         }
 
         if ($mostrar_actualizacion === '') {
@@ -276,11 +278,49 @@ class Torneo
         }
     }
 
+    public function agregar_columnas_personalizadas($columns)
+    {
+        $columns['torneo_buyin'] = __('Buyin', 'torneos-poker');
+        $columns['torneo_bounty'] = __('Bounty', 'torneos-poker');
+        $columns['torneo_puntos'] = __('Puntos', 'torneos-poker');
+        $columns['torneo_modalidad'] = __('Modaliad', 'torneos-poker');
+        $columns['torneo_fecha'] = __('Fecha Torneo', 'torneos-poker');
+        $columns['torneo_hora'] = __('Hora Torneo', 'torneos-poker');
+        // Añade más columnas si es necesario
+        return $columns;
+    }
+
+    public function rellenar_columnas_personalizadas($column, $post_id)
+    {
+        switch ($column) {
+            case 'torneo_buyin':
+                echo esc_html(get_post_meta($post_id, '_torneo_buyin', true));
+                break;
+            case 'torneo_bounty':
+                echo esc_html(get_post_meta($post_id, '_torneo_bounty', true));
+                break;
+            case 'torneo_puntos':
+                echo esc_html(get_post_meta($post_id, '_torneo_puntos', true));
+                break;
+            case 'torneo_fecha':
+                echo esc_html(get_post_meta($post_id, '_torneo_fecha', true));
+                break;
+            case 'torneo_hora':
+                echo esc_html(get_post_meta($post_id, '_torneo_hora', true));
+                break;
+            case 'torneo_modalidad':
+                $modalidad_id = get_post_meta($post_id, 'torneo_modalidad_id', true);
+                $modalidad = get_post($modalidad_id);
+                echo esc_html($modalidad ? $modalidad->post_title : __('Desconocida', 'torneos-poker'));
+                break;
+        }
+    }
+
     public function enqueue_admin_scripts($hook)
     {
         global $post;
 
-        if ($hook == 'post-new.php' || $hook == 'post.php') {
+        if ($hook == 'post-new.php' || $hook == 'post.php' || $hook == "edit.php") {
             if ($post->post_type === $this->post_type) {
                 wp_enqueue_style('select2', 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css');
                 wp_enqueue_script('select2', 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js', ['jquery'], '4.0.13', true);

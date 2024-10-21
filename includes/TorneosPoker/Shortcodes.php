@@ -28,6 +28,10 @@ class Shortcodes
         $torneos = $torneo_query->getByDateFromToday(); // Obtener torneos a partir de hoy
         $modalidad_query = new ModalidadQuery();
 
+        echo "<pre style='background-color: black; color: white; padding: 10px'>";
+        var_dump($torneo_query->test());
+        echo "</pre>";
+
         $output = '<div class="torneo-cards">';
         foreach ($torneos as $torneo) {
             $permalink = $torneo->get_permalink();
