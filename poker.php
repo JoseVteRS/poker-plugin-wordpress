@@ -19,6 +19,12 @@ if (!defined('WPINC')) {
 }
 
 
+// Define la constante para la ruta base del plugin
+if (!defined('POKER_PLUGIN_DIR')) {
+    define('POKER_PLUGIN_DIR', plugin_dir_path(__FILE__));
+}
+
+
 // Autoload de clases
 spl_autoload_register(function ($class_name) {
     $classes_dir = plugin_dir_path(__FILE__) . 'includes/';
@@ -29,12 +35,9 @@ spl_autoload_register(function ($class_name) {
 });
 
 // Inicializar el plugin
-function iniciar_plugin_torneos_poker() {
+function iniciar_plugin_torneos_poker()
+{
     $plugin = new TorneosPoker\Plugin();
     $plugin->run();
 }
 add_action('plugins_loaded', 'iniciar_plugin_torneos_poker');
-
-
-
-

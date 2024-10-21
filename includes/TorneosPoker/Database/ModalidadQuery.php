@@ -9,6 +9,16 @@ class ModalidadQuery extends QueryBuilder
         parent::__construct('modalidad');
     }
 
+    public function get_all()
+    {
+        return $this->get();
+    }
+
+    public function get_by_id(string $id)
+    {
+        return $this->findUnique($id)->get();
+    }
+
     public function whereBuyinGreaterThan($buyin)
     {
         return $this->where('_modalidad_buyin', $buyin, '>');
@@ -16,8 +26,6 @@ class ModalidadQuery extends QueryBuilder
 
     public function whereBuyinLowerThan($buyin)
     {
-        return $this->where('_modalidad_buyin', $buyin, '<');
+        return  $this->where('_modalidad_buyin', $buyin, '<');
     }
-
-    // Puedes añadir más métodos específicos para Modalidad aquí
 }

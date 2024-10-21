@@ -13,6 +13,7 @@ class QueryBuilder
         $this->args['post_type'] = $post_type;
     }
 
+
     public function where($key, $value, $compare = '=')
     {
         if (!isset($this->args['meta_query'])) {
@@ -23,6 +24,16 @@ class QueryBuilder
             'value' => $value,
             'compare' => $compare
         ];
+        return $this;
+    }
+
+    public function findUnique(string $id)
+    {
+        if (!isset($this->args['tax_query'])) {
+            $this->args['tax_query'] = [];
+        }
+        
+        $this->args['p'] = $id;
         return $this;
     }
 

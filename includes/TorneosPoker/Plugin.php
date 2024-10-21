@@ -5,8 +5,6 @@ namespace TorneosPoker;
 use TorneosPoker\PostTypes\Torneo;
 use TorneosPoker\PostTypes\Modalidad;
 use TorneosPoker\Taxonomies\PokerTaxonomies;
-use TorneosPoker\Database\TorneoQuery;
-use TorneosPoker\Database\ModalidadQuery;
 use TorneosPoker\Shortcodes;
 
 class Plugin
@@ -32,6 +30,7 @@ class Plugin
     {
         add_action('init', [$this->cargadores['torneos'], 'registrar']);
         add_action('init', [$this->cargadores['modalidades'], 'registrar']);
+        
         add_action('admin_menu', [$this, 'agregar_menu_poker']);
         add_action('admin_enqueue_scripts', [$this, 'enqueue_admin_styles']);
         add_action('wp_enqueue_scripts', [$this, 'enqueue_frontend_styles']);
@@ -41,8 +40,8 @@ class Plugin
     {
         // Menú principal
         add_menu_page(
-            __('Poker', 'torneos-poker'),
-            __('Poker', 'torneos-poker'),
+            __('POKER', 'torneos-poker'),
+            __('POKER', 'torneos-poker'),
             'manage_options',
             'poker_menu',
             '',

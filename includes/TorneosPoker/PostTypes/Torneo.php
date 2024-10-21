@@ -193,18 +193,27 @@ class Torneo
         $mostrar_frontend = get_post_meta($post->ID, '_torneo_mostrar_frontend', true);
         $mostrar_actualizacion = get_post_meta($post->ID, '_torneo_mostrar_actualizacion', true);
 
+        if ($mostrar_frontend === '') {
+            $mostrar_frontend = 'on'; 
+        }
+
+        if ($mostrar_actualizacion === '') {
+            $mostrar_actualizacion = 'off';
+        }
+
     ?>
         <div class="torneo-visibilidad">
             <div class="torneo-switch-container">
                 <label class="switch">
-                    <input type="checkbox" id="torneo_mostrar_frontend" name="torneo_mostrar_frontend" <?php checked($mostrar_frontend, 'on'); ?>>
+                    <input type="checkbox" id="torneo_mostrar_frontend" name="torneo_mostrar_frontend"
+                        <?php checked($mostrar_frontend, 'on', true); ?>>
                     <span class="slider round"></span>
                 </label>
                 <span class="switch-label"><?php _e('Mostrar en Frontend', 'torneos-poker'); ?></span>
             </div>
             <div class="torneo-switch-container">
                 <label class="switch">
-                    <input type="checkbox" id="torneo_mostrar_actualizacion" name="torneo_mostrar_actualizacion" <?php checked($mostrar_actualizacion, 'on'); ?>>
+                    <input type="checkbox" id="torneo_mostrar_actualizacion" name="torneo_mostrar_actualizacion" <?php checked($mostrar_actualizacion, 'on', false); ?>>
                     <span class="slider round"></span>
                 </label>
                 <span class="switch-label"><?php _e('Mostrar Actualización', 'torneos-poker'); ?></span>

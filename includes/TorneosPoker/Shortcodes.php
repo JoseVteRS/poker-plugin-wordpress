@@ -2,7 +2,10 @@
 
 namespace TorneosPoker;
 
-use TorneosPoker\Database\TorneoQuery;
+use TorneosPoker\Repositories\ModalidadRepository;
+use TorneosPoker\Repositories\TorneoRepository;
+
+require_once POKER_PLUGIN_DIR . 'includes/TorneosPoker/Repositories/ModalidadRepository.php';
 
 class Shortcodes
 {
@@ -23,29 +26,44 @@ class Shortcodes
             'lista_torneos'
         );
 
-        $query = new TorneoQuery();
-        $torneos = $query
-            ->orderBy($atts['orderby'], $atts['order'])
-            ->limit($atts['limit'])
-            ->get();
+        $torneo_repository = new TorneoRepository();
+        $torneos = $torneo_repository->get_all();
+        $modalidad_repository = new ModalidadRepository();
 
-        echo "<pre style='background-color: black; color: white; padding: 10px'>";
-        var_dump($torneos);
-        echo "</pre>";
 
-        $output = '<ul class="lista-torneos">';
+        $output = '<div class="torneo-cards" style="display: grid; grid-template-columns: repeat(2, 1fr)">';
         foreach ($torneos as $torneo) {
-            $fecha = get_post_meta($torneo->ID, '_torneo_fecha', true);
-            $buyin = get_post_meta($torneo->ID, '_torneo_buyin', true);
+            $permalink = $torneo->get_permalink();
+            $name = $torneo->get_name();
+            $fecha = $torneo->get_date();
+            $buyin = $torneo->get_buyin();
+            $modalidad = $modalidad_repository->findById($torneo->get_modalidad_id());
+
             $output .= sprintf(
-                '<li><a href="%s">%s</a> - Fecha: %s, Buy-in: %s</li>',
-                get_permalink($torneo->ID),
-                esc_html($torneo->post_title),
+                '<div class="torneo-card" style="border: 1px solid #ccc; border-radius: 8px; overflow: hidden; margin-bottom: 20px;">
+                    <div class="torneo-card-header" style="background-color: %s; padding: 10px;">
+                        <h3 style="margin: 0; color: #fff;">%s</h3>
+                    </div>
+                    <div class="torneo-card-body" style="padding: 15px;">
+                        <div class="torneo-logo" style="text-align: center; margin-bottom: 10px;">
+                            %s
+                        </div>
+                        <p><strong>Fecha:</strong> %s</p>
+                        <p><strong>Buy-in:</strong> %s</p>
+                        <p><strong>Modalidad:</strong> %s</p>
+                        <a href="%s" style="display: inline-block; margin-top: 10px; padding: 10px 15px; background-color: #0073aa; color: #fff; text-decoration: none; border-radius: 4px;">Ver más</a>
+                    </div>
+                </div>',
+                esc_html($modalidad->get_color()),
+                esc_html($name),
+                $modalidad->get_thumbnail(),
                 esc_html($fecha),
-                esc_html($buyin)
+                esc_html($buyin),
+                esc_html($modalidad->get_name()),
+                $permalink
             );
         }
-        $output .= '</ul>';
+        $output .= '</div>';
 
         return $output;
     }
