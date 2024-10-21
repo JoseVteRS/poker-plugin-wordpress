@@ -25,6 +25,8 @@ if (!defined('POKER_PLUGIN_DIR')) {
 }
 
 
+require_once POKER_PLUGIN_DIR . 'utils/Utils.php';
+
 // Autoload de clases
 spl_autoload_register(function ($class_name) {
     $classes_dir = plugin_dir_path(__FILE__) . 'includes/';

@@ -1,21 +1,39 @@
-.lista-torneos {
-    list-style-type: none;
-    padding: 0;
-}
-
-.lista-torneos li {
-    margin-bottom: 10px;
+.torneo-card {
+    border: 1px solid lightgray;
+    border-radius: 9px;
     padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    box-shadow: 2px 2px 5px lightblue;
 }
 
-.lista-torneos li a {
-    font-weight: bold;
-    color: #333;
+.torneo-card p {
+    margin: 0px;
+    margin-bottom: 2px;
+}
+
+.torneo-card a {
+    display: inline-block;
+    /* Para que se comporte como un botón */
+    padding: 10px 15px;
+    /* Espaciado interno */
+    background-color: #0073aa;
+    /* Azul */
+    color: #fff;
+    /* Texto blanco */
     text-decoration: none;
+    /* Sin subrayado */
+    border-radius: 4px;
+    /* Bordes redondeados */
+    transition: background-color 0.3s ease;
+    /* Transición suave */
 }
 
-.lista-torneos li a:hover {
-    text-decoration: underline;
+.torneo-card a:hover {
+    background-color: #005f8d;
+    /* Azul más oscuro al hacer hover */
+}
+
+.torneo-card .wp-post-image {
+    width: 100%;
+    border-radius: 9px;
+    object-fit: cover;
 }

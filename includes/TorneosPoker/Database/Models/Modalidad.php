@@ -2,6 +2,8 @@
 
 namespace TorneosPoker\Models;
 
+use WP_Post;
+
 class Modalidad
 {
     protected $id;
@@ -15,7 +17,7 @@ class Modalidad
     protected $mas_info;
     protected $mostrar;
 
-    public function __construct($id, $name, $color, $buyin, $bounty, $puntos, $mas_info, $mostrar, $thumbnail, $thumbnail_url)
+    public function __construct($id, $name, $color, $buyin, $bounty, $puntos, $mas_info, $mostrar)
     {
         $this->id = $id;
         $this->name = $name;
@@ -25,8 +27,6 @@ class Modalidad
         $this->puntos = $puntos;
         $this->mas_info = $mas_info;
         $this->mostrar = $mostrar;
-        $this->thumbnail = $thumbnail;
-        $this->thumbnail_url = $thumbnail_url;
     }
 
     public function get_id()
@@ -69,13 +69,13 @@ class Modalidad
         return $this->mostrar === 'on';
     }
 
-    public function get_thumbnail()
+    public function get_thumbnail(string $size = 'thumbnail')
     {
-        return $this->thumbnail;
+        return get_the_post_thumbnail($this->get_id(), $size);
     }
 
-    public function get_thumbnail_url()
+    public function get_thumbnail_url(string $size = 'thumbnail')
     {
-        return $this->thumbnail_url;
+        return get_the_post_thumbnail_url($this->get_id(), $size);
     }
 }
